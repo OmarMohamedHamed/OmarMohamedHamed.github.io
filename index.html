@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omar Mo. Hamed — Football Data Analyst</title>
+    <meta name="description" content="Data Analyst specializing in football analytics. 4+ years at Hudl & StatsBomb. Turning football data into stories that reveal what the eye alone can't.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="#hero" class="nav-logo">OMH</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
+                <li><a href="#work">Work</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <p class="hero-greeting">Hello, I'm</p>
+            <h1 class="hero-name">Omar Mo. Hamed</h1>
+            <p class="hero-title">Data Analyst <span class="accent">&</span> Football Analytics Specialist</p>
+            <p class="hero-subtitle">Turning football data into stories that reveal what the eye alone can't.</p>
+            <div class="hero-cta">
+                <a href="#work" class="btn btn-primary">View My Work</a>
+                <a href="#contact" class="btn btn-outline">Get in Touch</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">4+</span>
+                    <span class="stat-label">Years in Football Data</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">Hudl</span>
+                    <span class="stat-label">StatsBomb</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">End-to-End</span>
+                    <span class="stat-label">Data to Insight</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-pitch-lines"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p class="about-lead">I'm a Data Analyst with 4+ years of experience embedded in one of the world's leading football data organizations.</p>
+                    <p>My work sits at the intersection of football knowledge, statistical thinking, and technical execution. At Hudl (formerly StatsBomb), I've worked across analytics, data engineering, and product quality — from building a large-scale cross-platform data integration engine to developing automated performance dashboards adopted across multiple business lines.</p>
+                    <p>I'm equally comfortable deep in Python, SQL, and Tableau as I am collaborating with engineering squads on deployment and iteration. I hold a strong foundation in machine learning and NLP, complementing a sharp analytical mindset with the technical depth to build end-to-end solutions.</p>
+                    <p>What drives me is a simple belief: the best football analysis doesn't just describe what happened — it explains <em>why</em> it matters.</p>
+                </div>
+                <div class="about-details">
+                    <div class="detail-card">
+                        <h3>What I Do</h3>
+                        <ul>
+                            <li>Football performance analysis</li>
+                            <li>Custom metric development</li>
+                            <li>Data visualization & storytelling</li>
+                            <li>Production data systems</li>
+                            <li>Statistical modelling</li>
+                        </ul>
+                    </div>
+                    <div class="detail-card">
+                        <h3>Tools I Use</h3>
+                        <ul>
+                            <li>Python (pandas, matplotlib, mplsoccer)</li>
+                            <li>SQL</li>
+                            <li>Tableau</li>
+                            <li>Git & GitHub</li>
+                            <li>Machine Learning libraries</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Section -->
+    <section class="section work" id="work">
+        <div class="container">
+            <h2 class="section-title">Featured Work</h2>
+            <p class="section-subtitle">Analysis pieces where data meets football storytelling</p>
+
+            <article class="work-card work-card-featured">
+                <div class="work-card-visual">
+                    <div class="work-gallery">
+                        <div class="work-gallery-main">
+                            <img src="images/scatter-plot.png" alt="Hold Time vs Forward Gain scatter plot showing Pedri as an outlier among top central midfielders" loading="lazy">
+                        </div>
+                        <div class="work-gallery-thumbs">
+                            <button class="thumb active" data-img="images/scatter-plot.png" aria-label="View scatter plot">
+                                <img src="images/scatter-plot.png" alt="Scatter plot thumbnail">
+                            </button>
+                            <button class="thumb" data-img="images/violin-chart.png" aria-label="View violin chart">
+                                <img src="images/violin-chart.png" alt="Violin chart thumbnail">
+                            </button>
+                            <button class="thumb" data-img="images/consistency-chart.png" aria-label="View consistency chart">
+                                <img src="images/consistency-chart.png" alt="Consistency chart thumbnail">
+                            </button>
+                            <button class="thumb" data-img="images/pitch-map.png" aria-label="View pitch map">
+                                <img src="images/pitch-map.png" alt="Pitch map thumbnail">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-card-content">
+                    <span class="work-tag">Football Analytics</span>
+                    <h3 class="work-title">Two Seconds Nobody Else Has</h3>
+                    <p class="work-description">An original analysis of Pedri's composure under pressure — measuring how long central midfielders hold the ball in congested zones before releasing, and how far forward that release travels. Across 86 qualifying situations in La Liga and the Premier League, Pedri occupies a corner of the chart that belongs to him alone: holding longer <em>and</em> still finding the forward pass.</p>
+                    <div class="work-meta">
+                        <span>Hudl StatsBomb Data</span>
+                        <span>Python & Custom Metrics</span>
+                        <span>La Liga & Premier League 2024–26</span>
+                    </div>
+                    <a href="https://www.linkedin.com/pulse/two-seconds-nobody-else-has-omar-mohamed-hamed-5ftsf" target="_blank" rel="noopener" class="btn btn-primary">Read the Full Article <span class="arrow">&rarr;</span></a>
+                </div>
+            </article>
+
+            <div class="work-upcoming">
+                <div class="upcoming-card">
+                    <div class="upcoming-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32">
+                            <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                    </div>
+                    <h3>More Analysis Coming Soon</h3>
+                    <p>New pieces exploring football through data are in the works. Follow me on LinkedIn to be the first to read them.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="section experience" id="experience">
+        <div class="container">
+            <h2 class="section-title">Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Data Analyst</h3>
+                            <span class="timeline-company">Hudl</span>
+                        </div>
+                        <span class="timeline-date">Dec 2024 – Present</span>
+                        <p>Continued data analytics responsibilities following Hudl's acquisition of StatsBomb. Led the structural design of a large-scale data mapping initiative in collaboration with an engineering squad over a 12+ month engagement, enabling the integration and alignment of complex football datasets across systems.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Data Analyst</h3>
+                            <span class="timeline-company">Hudl StatsBomb</span>
+                        </div>
+                        <span class="timeline-date">Jan 2022 – Dec 2024</span>
+                        <p>Analyzed large-scale football datasets using statistical methods. Developed new metrics and analytical models. Built production-level data systems including a cross-system data translation engine and automated performance dashboards adopted across multiple business lines.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Data Science Member</h3>
+                            <span class="timeline-company">Solvers Club</span>
+                        </div>
+                        <span class="timeline-date">Jun 2021 – Nov 2021</span>
+                        <p>Worked alongside top-rated Kaggle data scientists, receiving hands-on mentorship in advanced data science techniques and participating in competitive challenges.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>B.Sc. Computer Science</h3>
+                            <span class="timeline-company">Mansoura University</span>
+                        </div>
+                        <span class="timeline-date">2014 – 2018</span>
+                        <p>Bachelor's degree in Computer Science, Egypt.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section skills" id="skills">
+        <div class="container">
+            <h2 class="section-title">Skills & Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Data & Analytics</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Data Analysis</span>
+                        <span class="skill-tag">Statistical Modelling</span>
+                        <span class="skill-tag">Data Visualisation</span>
+                        <span class="skill-tag">Data Quality Assurance</span>
+                        <span class="skill-tag">Metric Development</span>
+                        <span class="skill-tag">Data Cleaning & Transformation</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Technical</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Git & GitHub</span>
+                        <span class="skill-tag">Tableau</span>
+                        <span class="skill-tag">Machine Learning</span>
+                        <span class="skill-tag">Deep Learning</span>
+                        <span class="skill-tag">NLP</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Domain</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Football Analytics</span>
+                        <span class="skill-tag">Sports Data</span>
+                        <span class="skill-tag">Performance Analysis</span>
+                        <span class="skill-tag">Cross-functional Collaboration</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Key Projects</h3>
+                    <div class="project-cards">
+                        <div class="project-card">
+                            <h4>Cross-System Data Translation Engine</h4>
+                            <p>Independently designed and developed a full data translation system to map and align football data across two distinct formats, enabling seamless interoperability between platforms. Became a core component of the organisation's data infrastructure.</p>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">Rule-Based Modelling</span>
+                                <span class="skill-tag">Git</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <h4>Data Collector Performance Dashboard</h4>
+                            <p>Designed and built an automated performance scoring system evaluating data collectors across multiple quality dimensions. Replicated across several business lines, enabling data-driven quality assurance decisions.</p>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">SQL</span>
+                                <span class="skill-tag">Tableau</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <p class="contact-text">Interested in football analytics, collaboration, or just want to talk data and football? I'd love to hear from you.</p>
+            <div class="contact-links">
+                <a href="mailto:Omhaomar7@gmail.com" class="contact-card">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
+                            <rect x="2" y="4" width="20" height="16" rx="2"/>
+                            <path d="M22 4L12 13 2 4"/>
+                        </svg>
+                    </div>
+                    <span class="contact-label">Email</span>
+                    <span class="contact-value">Omhaomar7@gmail.com</span>
+                </a>
+                <a href="https://www.linkedin.com/in/omar-mohamed-hamed/" target="_blank" rel="noopener" class="contact-card">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                            <rect x="2" y="9" width="4" height="12"/>
+                            <circle cx="4" cy="4" r="2"/>
+                        </svg>
+                    </div>
+                    <span class="contact-label">LinkedIn</span>
+                    <span class="contact-value">Omar Mohamed Hamed</span>
+                </a>
+                <a href="https://x.com/Omar_Mo_Hamed" target="_blank" rel="noopener" class="contact-card">
+                    <div class="contact-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </div>
+                    <span class="contact-label">X / Twitter</span>
+                    <span class="contact-value">@Omar_Mo_Hamed</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Omar Mo. Hamed. Built with passion for football and data.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

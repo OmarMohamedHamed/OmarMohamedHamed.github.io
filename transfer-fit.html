@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Can the Numbers Travel? — Omar Mo. Hamed</title>
+    <meta name="description" content="A proof of concept for context-adjusted striker evaluation across leagues — measuring performance only in situations that match the difficulty of the target league.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Sub-page specific styles */
+        .article-hero {
+            padding: 140px 24px 80px;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 40px;
+            transition: var(--transition);
+        }
+
+        .back-link:hover { color: var(--accent); }
+
+        .back-link svg { transition: transform 0.2s; }
+
+        .back-link:hover svg { transform: translateX(-4px); }
+
+        .article-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .poc-badge {
+            background: rgba(212, 168, 67, 0.1);
+            border: 1px solid rgba(212, 168, 67, 0.25);
+            color: var(--accent);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
+        }
+
+        .article-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 5vw, 3.4rem);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 24px;
+            max-width: 760px;
+        }
+
+        .article-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 640px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 24px;
+            padding-top: 28px;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .meta-label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .meta-value {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Article body */
+        .article-body {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px 100px;
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 64px;
+            align-items: start;
+        }
+
+        .article-content h2 {
+            font-family: var(--font-display);
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin: 48px 0 16px;
+            color: var(--text-primary);
+        }
+
+        .article-content h2:first-child { margin-top: 0; }
+
+        .article-content p {
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+            line-height: 1.85;
+            margin-bottom: 18px;
+        }
+
+        .article-content p em { color: var(--accent); font-style: italic; }
+
+        .article-content strong { color: var(--text-primary); font-weight: 600; }
+
+        /* Metric cards */
+        .metric-grid {
+            display: grid;
+            gap: 16px;
+            margin: 28px 0;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 24px 28px;
+            display: grid;
+            grid-template-columns: 48px 1fr;
+            gap: 20px;
+            align-items: start;
+            transition: var(--transition);
+        }
+
+        .metric-card:hover {
+            border-color: var(--border-hover);
+        }
+
+        .metric-number {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            padding-top: 2px;
+        }
+
+        .metric-card h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .metric-card p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        /* Results table */
+        .results-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 28px 0;
+        }
+
+        .results-header {
+            padding: 16px 24px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .results-header h4 {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .results-header span {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .results-table th {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-weight: 600;
+            padding: 12px 24px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .results-table td {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            padding: 13px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .results-table tr:last-child td { border-bottom: none; }
+
+        .score-pill {
+            display: inline-block;
+            font-size: 0.82rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 4px;
+            min-width: 36px;
+            text-align: center;
+        }
+
+        .score-high { background: rgba(5,150,105,0.15); color: #34d399; border: 1px solid rgba(52,211,153,0.2); }
+        .score-mid  { background: rgba(37,99,235,0.15); color: #60a5fa; border: 1px solid rgba(96,165,250,0.2); }
+
+        /* Callout blocks */
+        .callout {
+            border-left: 3px solid var(--accent);
+            background: var(--bg-card);
+            padding: 20px 24px;
+            border-radius: 0 8px 8px 0;
+            margin: 28px 0;
+        }
+
+        .callout p {
+            margin: 0;
+            font-size: 0.94rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+        }
+
+        .callout strong { color: var(--accent); }
+
+        /* Dashboard CTA */
+        .dashboard-cta {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 36px;
+            margin: 40px 0;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .dashboard-cta:hover {
+            border-color: var(--border-hover);
+        }
+
+        .dashboard-cta p {
+            font-size: 0.93rem;
+            color: var(--text-muted);
+            margin: 12px 0 24px;
+        }
+
+        /* Sticky sidebar */
+        .article-sidebar {
+            position: sticky;
+            top: 100px;
+        }
+
+        .sidebar-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-card h4 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .sidebar-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.88rem;
+        }
+
+        .sidebar-stat:last-child { border-bottom: none; }
+
+        .sidebar-stat-label { color: var(--text-muted); }
+
+        .sidebar-stat-value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .sidebar-league {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        .league-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 900px) {
+            .article-body {
+                grid-template-columns: 1fr;
+            }
+            .article-sidebar {
+                position: static;
+                order: -1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">OMH</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#work">Work</a></li>
+                <li><a href="index.html#experience">Experience</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Article Hero -->
+    <header class="article-hero">
+        <a href="index.html#work" class="back-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16">
+                <path d="M19 12H5M5 12l7-7M5 12l7 7"/>
+            </svg>
+            Back to work
+        </a>
+
+        <div class="article-tag">
+            Football Analytics
+            <span class="poc-badge">Proof of Concept</span>
+        </div>
+
+        <h1 class="article-title">Can the Numbers Travel?</h1>
+
+        <p class="article-subtitle">
+            A proof of concept for evaluating strikers across leagues — not by comparing raw numbers, but by isolating how each player performs specifically in situations that match the difficulty of the target league.
+        </p>
+
+        <div class="article-meta">
+            <div class="meta-item">
+                <span class="meta-label">Data</span>
+                <span class="meta-value">Hudl StatsBomb</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Season</span>
+                <span class="meta-value">2024/25</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Players</span>
+                <span class="meta-value">123 strikers evaluated</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Stack</span>
+                <span class="meta-value">Python · StatsBomb API · React</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Article Body -->
+    <div class="article-body">
+
+        <main class="article-content">
+
+            <h2>The Problem With Raw Numbers</h2>
+
+            <p>Cross-league comparisons are everywhere in football. A striker scores 22 goals in Liga Portugal — does that translate? The usual answer is a shrug, maybe a vague "the league is weaker." That's not wrong, but it's not very useful either.</p>
+
+            <p>What makes a league harder isn't just the general quality of opposition — it's the specific conditions a striker faces at the moment of action. How quickly defenders close. How tight the grid is when the ball arrives. How elite the aerial opponents are. A player can post impressive numbers in a weaker league, but if those numbers came entirely in situations where he had time and space, then the question of "how would he cope in the Premier League?" stays unanswered.</p>
+
+            <p>That's what this system tries to address. <em>Not a general comparison — a difficulty-matched one.</em></p>
+
+            <h2>The Idea</h2>
+
+            <p>The system takes strikers from three source leagues — Eredivisie, Liga Portugal, and Bundesliga — and evaluates them against three target leagues: the Premier League, La Liga, and Bundesliga. But it doesn't compare their season totals. Instead, for each target league, it computes difficulty thresholds from that league's own striker population: what counts as a crowded receipt in the Premier League, what qualifies as a hard shot in La Liga, who is an elite aerial opponent in the Bundesliga.</p>
+
+            <p>Then it filters each source player's events down to only the situations that clear those thresholds — the moments in their own league where conditions matched the demands of the target league. The score reflects how they performed in <em>those specific moments only</em>.</p>
+
+            <div class="callout">
+                <p><strong>The core principle:</strong> if a player from Liga Portugal faced 41 receipts where the second-nearest defender was within the Premier League's crowded-situation threshold, and he succeeded in 87% of them — that tells us something more grounded than his overall reception rate.</p>
+            </div>
+
+            <h2>Three Metrics</h2>
+
+            <p>The system scores each player on three things, each filtered to match the target league's difficulty:</p>
+
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-number">01</div>
+                    <div>
+                        <h3>Reception Under Pressure</h3>
+                        <p>Ball receipt situations where the second-nearest defender is within the target league's median crowding distance. Success is defined by the player's next meaningful action — a completed pass, dribble, shot, or shielded ball. Carries are skipped; they're automatic, not decisions.</p>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">02</div>
+                    <div>
+                        <h3>Finishing on Hard Chances</h3>
+                        <p>Open-play shots with xG at or below the target league's median xG per shot — the harder half of the shot distribution. Measured as absolute goals minus expected goals. Positive means clinical on difficult opportunities; negative means wasteful.</p>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-number">03</div>
+                    <div>
+                        <h3>Aerial Duels vs Elite Defenders</h3>
+                        <p>Aerial contests against opponents whose HOPS rating (StatsBomb's jumping power metric) meets or exceeds the target league's median. Win rate in these specific duels only — not overall aerial figures.</p>
+                    </div>
+                </div>
+            </div>
+
+            <p>Each metric is scored as a percentile rank within the target league's own striker population. Metrics with too small a sample are excluded from the score rather than zeroed — redistribution is fairer than penalising a player for not having enough hard chances in the filtered subset. The final score is an equal-weighted average across qualifying metrics.</p>
+
+            <h2>What the Data Returned</h2>
+
+            <p>Running this across 123 strikers and three target leagues produced 327 evaluations. A few things stood out. Harry Kane, who played in the Bundesliga in 2024/25, scores 94 for the Premier League — the system's top score for that target league. That's a reasonable sanity check: a striker of Kane's quality should rank highly even when the comparison is tightened to PL-difficulty situations.</p>
+
+            <div class="results-block">
+                <div class="results-header">
+                    <h4>Top 5 — Premier League</h4>
+                    <span>Source: Eredivisie · Liga Portugal · Bundesliga</span>
+                </div>
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Player</th>
+                            <th>Source League</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>Harry Kane</td><td>Bundesliga</td><td><span class="score-pill score-high">94</span></td></tr>
+                        <tr><td>2</td><td>Luuk de Jong</td><td>Eredivisie</td><td><span class="score-pill score-high">89</span></td></tr>
+                        <tr><td>3</td><td>Mexx Meerdink</td><td>Eredivisie</td><td><span class="score-pill score-high">87</span></td></tr>
+                        <tr><td>4</td><td>Vangelis Pavlidis</td><td>Liga Portugal</td><td><span class="score-pill score-high">85</span></td></tr>
+                        <tr><td>5</td><td>Patrik Schick</td><td>Bundesliga</td><td><span class="score-pill score-mid">82</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="results-block">
+                <div class="results-header">
+                    <h4>Top 5 — La Liga</h4>
+                    <span>Source: Eredivisie · Liga Portugal · Bundesliga</span>
+                </div>
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Player</th>
+                            <th>Source League</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>Mexx Meerdink</td><td>Eredivisie</td><td><span class="score-pill score-high">90</span></td></tr>
+                        <tr><td>2</td><td>Patrik Schick</td><td>Bundesliga</td><td><span class="score-pill score-high">88</span></td></tr>
+                        <tr><td>3</td><td>Luuk de Jong</td><td>Eredivisie</td><td><span class="score-pill score-high">86</span></td></tr>
+                        <tr><td>4</td><td>Harry Kane</td><td>Bundesliga</td><td><span class="score-pill score-high">85</span></td></tr>
+                        <tr><td>5</td><td>Benjamin Šeško</td><td>Bundesliga</td><td><span class="score-pill score-mid">77</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>Mexx Meerdink scoring 90 for both La Liga and Bundesliga is an interesting output — at the time of this run, he was an under-the-radar Eredivisie striker. The system flagging him as a strong difficulty-adjusted performer is the kind of signal that would prompt a closer look, which is exactly the point of a tool like this.</p>
+
+            <h2>What This Can't Tell You</h2>
+
+            <p>This score is descriptive, not predictive. A high score doesn't mean a player will succeed if transferred — it means his performance in situations matching the target league's difficulty looks good relative to that league's strikers. That's a narrower claim, and it should stay that way.</p>
+
+            <p>The system can't account for tactical fit, injury history, age trajectory, or the psychological adjustment that comes with moving clubs and countries. It doesn't know that a player's crowded receipts in Eredivisie happened mostly in late-stage cup games against weaker sides. Sample sizes — which the system tracks and reports — can still be small enough to be noisy even when above the minimum threshold.</p>
+
+            <p>What it can do is narrow the field in a more principled way than raw goals or general league-difficulty discounts.</p>
+
+            <h2>Where This Could Go</h2>
+
+            <p>This is a proof of concept. The data pipeline works, the scoring logic is sound, and the outputs are interpretable — but applying this properly at scale would need a few things this version doesn't have: larger sample coverage across more source leagues, multiple seasons to smooth small-sample noise, and position-specific difficulty thresholds rather than one set for all strikers.</p>
+
+            <p>With those additions, a tool like this becomes genuinely useful in a scouting context: not as a final answer, but as a first filter that's better than what most people are doing today.</p>
+
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="article-sidebar">
+
+            <div class="sidebar-card">
+                <h4>At a Glance</h4>
+                <div class="sidebar-stat">
+                    <span class="sidebar-stat-label">Strikers evaluated</span>
+                    <span class="sidebar-stat-value">123</span>
+                </div>
+                <div class="sidebar-stat">
+                    <span class="sidebar-stat-label">Total evaluations</span>
+                    <span class="sidebar-stat-value">327</span>
+                </div>
+                <div class="sidebar-stat">
+                    <span class="sidebar-stat-label">Metrics per player</span>
+                    <span class="sidebar-stat-value">3</span>
+                </div>
+                <div class="sidebar-stat">
+                    <span class="sidebar-stat-label">Season</span>
+                    <span class="sidebar-stat-value">2024/25</span>
+                </div>
+            </div>
+
+            <div class="sidebar-card">
+                <h4>Source Leagues</h4>
+                <div class="sidebar-league">
+                    <span class="league-dot" style="background:#fbbf24"></span>
+                    Bundesliga
+                </div>
+                <div class="sidebar-league">
+                    <span class="league-dot" style="background:#f87171"></span>
+                    Eredivisie
+                </div>
+                <div class="sidebar-league">
+                    <span class="league-dot" style="background:#34d399"></span>
+                    Liga Portugal
+                </div>
+            </div>
+
+            <div class="sidebar-card">
+                <h4>Target Leagues</h4>
+                <div class="sidebar-league">
+                    <span class="league-dot" style="background:#f87171"></span>
+                    Premier League
+                </div>
+                <div class="sidebar-league">
+                    <span class="league-dot" style="background:#a78bfa"></span>
+                    La Liga
+                </div>
+                <div class="sidebar-league">
+                    <span class="league-dot" style="background:#fbbf24"></span>
+                    Bundesliga
+                </div>
+            </div>
+
+            <div class="sidebar-card">
+                <h4>Built With</h4>
+                <div class="sidebar-stat">
+                    <span class="sidebar-stat-label">Data</span>
+                    <span class="sidebar-stat-value">Hudl StatsBomb</span>
+                </div>
+                <div class="sidebar-stat">
+                    <span class="sidebar-stat-label">Pipeline</span>
+                    <span class="sidebar-stat-value">Python</span>
+                </div>
+                <div class="sidebar-stat">
+                    <span class="sidebar-stat-label">Dashboard</span>
+                    <span class="sidebar-stat-value">React</span>
+                </div>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Omar Mo. Hamed. Built with passion for football and data.</p>
+        </div>
+    </footer>
+
+    <script>
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 60);
+        });
+
+        const toggle = document.getElementById('navToggle');
+        const links  = document.getElementById('navLinks');
+        toggle.addEventListener('click', () => {
+            toggle.classList.toggle('active');
+            links.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>
